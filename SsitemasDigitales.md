@@ -264,16 +264,3 @@ Y el ejemplo final con `delay(2000)` en el loop está hecho a propósito: el loo
 
 ---
 
-## El control de aprendizaje, como lo respondería
-
-1. **Flanco:** FALLING, porque con pull-up presionar baja el pin de 1 a 0.
-2. **volatile:** `pulsos` sí (ISR escribe, loop lee). `tUltimo` no (solo ISR). `total` no (solo loop).
-3. **Se reinicia:** `Serial.println` en la ISR es lentísimo → el watchdog reinicia el chip. Arreglo: la ISR sube una bandera y el `println` se hace en el loop.
-4. **Sin antirrebote:** **más de 10** avisos, cada rebote cuenta como un flanco.
-5. **Timer:** 500 000 × 1 µs = 0,5 s → la ISR corre cada **0,5 s** = **2 veces por segundo**.
-
----
-
-## Idea central (para quedarme con algo)
-
-Timer e interrupción externa son **el mismo truco**: un circuito vigila por mí y toca el timbre, y yo atiendo con una ISR. Para que ese truco no se rompa: ISR **corta**, con **IRAM_ATTR**, variables compartidas **volatile**, y trabajo pesado en el **loop** usando una **bandera**.
