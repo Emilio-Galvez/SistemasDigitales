@@ -1,6 +1,4 @@
-# Apuntes sueltos: timers e interrupciones (ESP32)
-
-*(semanas 3 y 4, Sistemas Digitales)*
+# Apuntes semanas 3 y 4 Sistemas digitales
 
 ---
 
@@ -258,7 +256,9 @@ Botón (FALLING) -> periférico GPIO detecta -> ISR [IRAM_ATTR + antirrebote]
                 -> bandera [volatile] -> loop() hace el trabajo pesado
 ```
 
-Pregunta que dejaron: ¿qué falla si olvido `volatile`? → el loop nunca ve la bandera. ¿Y si olvido `IRAM_ATTR`? → funciona casi siempre y falla de vez en cuando, sin razón aparente.
+Preguntas:
+¿Qué falla si olvido `volatile`? 
+→ el loop nunca ve la bandera. ¿Y si olvido `IRAM_ATTR`? → funciona casi siempre y falla de vez en cuando, sin razón aparente.
 
 Y el ejemplo final con `delay(2000)` en el loop está hecho a propósito: el loop está ocupado y aun así el aviso no se pierde. Eso es lo que no lograba el sondeo.
 
